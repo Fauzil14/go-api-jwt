@@ -1,0 +1,343 @@
+definitions:
+  controllers.AgeRatingCategoryInput:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+    type: object
+  controllers.LoginInput:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  controllers.MovieInput:
+    properties:
+      age_rating_category_id:
+        type: integer
+      title:
+        type: string
+      year:
+        type: integer
+    type: object
+  controllers.RegisterInput:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - email
+    - password
+    - username
+    type: object
+  models.AgeRatingCategory:
+    properties:
+      created_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.Movie:
+    properties:
+      age_rating_category_id:
+        type: integer
+      created_at:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+      updated_at:
+        type: string
+      year:
+        type: integer
+    type: object
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+paths:
+  /age-rating-categories:
+    get:
+      description: Get List of Age Rating Category
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.AgeRatingCategory'
+            type: array
+      summary: Get All Age Rating Category
+      tags:
+      - AgeRatingCategory
+    post:
+      description: Get List of Age Rating Category
+      parameters:
+      - description: the body to create new age rating category
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.AgeRatingCategoryInput'
+      - description: 'Authorization : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorizattion
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.AgeRatingCategory'
+      security:
+      - BearerToken: []
+      summary: Create Age Rating Category
+      tags:
+      - AgeRatingCategory
+  /age-rating-categories/{id}:
+    delete:
+      description: Delete one Age Rating Category by id
+      parameters:
+      - description: Age Rating Category id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+      summary: Delete an Age Rating Category by id
+      tags:
+      - AgeRatingCategory
+    get:
+      description: Get one Age Rating Category by id
+      parameters:
+      - description: Age Rating Category id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.AgeRatingCategory'
+      summary: Get an Age Rating Category by id
+      tags:
+      - AgeRatingCategory
+    patch:
+      description: Update one Age Rating Category by id
+      parameters:
+      - description: Age Rating Category id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: the body to update Age Rating Category
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.AgeRatingCategoryInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.AgeRatingCategory'
+      summary: Update an Age Rating Category by id
+      tags:
+      - AgeRatingCategory
+  /age-rating-categories/{id}/movies:
+    get:
+      description: Get all movies of Age Rating Category by id
+      parameters:
+      - description: Age Rating Category id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Movie'
+            type: array
+      summary: Get movies by Age Rating Category by id
+      tags:
+      - AgeRatingCategory
+  /login:
+    post:
+      description: Logging in to get jwt token for authorization
+      parameters:
+      - description: the body to login
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.LoginInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Login as an User
+      tags:
+      - Auth
+  /movies:
+    get:
+      description: Get List of Movie
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Movie'
+            type: array
+      summary: Get All Movie
+      tags:
+      - Movie
+    post:
+      description: Get List of Movie
+      parameters:
+      - description: the body to create new Movie
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.MovieInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Movie'
+      summary: Create Movie
+      tags:
+      - Movie
+  /movies/{id}:
+    delete:
+      description: Delete one Movie by id
+      parameters:
+      - description: Movie id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+      summary: Delete a Movie by id
+      tags:
+      - Movie
+    get:
+      description: Get one Movie by id
+      parameters:
+      - description: Movie id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Movie'
+      summary: Get a Movie by id
+      tags:
+      - Movie
+    patch:
+      description: Update one Movie by id
+      parameters:
+      - description: Movie id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: the body to update Movie
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.MovieInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Movie'
+      summary: Update a Movie by id
+      tags:
+      - Movie
+  /register:
+    post:
+      description: Register user from public access
+      parameters:
+      - description: the body to Register
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.RegisterInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Register new User
+      tags:
+      - Auth
+swagger: "2.0"
